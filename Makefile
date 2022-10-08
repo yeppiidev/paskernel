@@ -28,20 +28,21 @@ SOURCES = $(OBJDIR)/boot.o \
 		  $(OBJDIR)/serial.o \
 		  $(OBJDIR)/system.o \
 		  $(OBJDIR)/systemio.o
- 
+
+# Doing this for convenience
+all: dirs Kernel Asm Linker iso run clean
+
 Kernel:
 	$(info Compiling kernel...)
-	fpc $(FPCPARAMS) kernel.pas
- 
+	fpc $(FPCPARAMS) src/kernel.pas
+
 Asm:
 	$(info Compiling bootloader...)
-	nasm $(NASMPARAMS) boot.asm
+	nasm $(NASMPARAMS) src/boot.asm
  
 Linker:
 	$(info Linking objects...)
 	$(LD) $(LDPARAMS) $(SOURCES)
- 
-all: clean dirs Kernel Asm Linker iso run
 
 dirs:
 	mkdir -p $(OBJDIR)
